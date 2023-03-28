@@ -31,14 +31,14 @@ app.use(express.json());
 
 app.post("/team", async (req, res) => {
   let { teamName, password } = req.body;
-  console.log(teamName);
+  //console.log(teamName);
   const alreadyExists = await db
     .collection("team_info")
     .findOne({ $and: [{ teamName: teamName }, { password: password }] });
 
-  console.log(alreadyExists);
+  //console.log(alreadyExists);
   if (alreadyExists) {
-    console.log(alreadyExists);
+    //console.log(alreadyExists);
     res.send({
       status: 200,
       msg: "Success!! Team Exists",
@@ -72,8 +72,8 @@ app.post("/submit", async (req, res) => {
   } = req.body;
   const team = await db.collection("team_info").findOne({ teamName: teamName });
   const turnInfo = await db.collection("turn_info").findOne({});
-  console.log(turnInfo);
-  console.log(team);
+  //console.log(turnInfo);
+  //console.log(team);
   if (selectedCoordinates.length === 0)
     return res.send({
       status: 404,
@@ -104,7 +104,7 @@ app.post("/submit", async (req, res) => {
         const baseTeam = await db
           .collection("team_info")
           .findOne({ teamName: "uperf" });
-        console.log(baseTeam);
+        //console.log(baseTeam);
         await db
           .collection("team_info")
           .updateOne(
@@ -462,11 +462,11 @@ app.post("/submit", async (req, res) => {
           const targetTeam = await db
             .collection("team_info")
             .findOne({ allowedRange: 17 });
-          console.log(targetTeam);
-          console.log(targetTeam.coordinates);
-          console.log(selectedCoordinates[0]);
+          //console.log(targetTeam);
+          //console.log(targetTeam.coordinates);
+          //console.log(selectedCoordinates[0]);
           idx = targetTeam.coordinates?.indexOf(selectedCoordinates[0]);
-          console.log(idx);
+          //console.log(idx);
           if (idx != -1 && idx !== undefined) {
             await db
               .collection("team_info")
@@ -474,17 +474,17 @@ app.post("/submit", async (req, res) => {
                 { teamName: targetTeam.teamName },
                 { $push: { revealed: selectedCoordinates[0] } }
               );
-            console.log(targetTeam.coordinates);
+            //console.log(targetTeam.coordinates);
             let array = targetTeam.coordinates;
             array.splice(idx, 1);
-            console.log(array);
+            //console.log(array);
             await db.collection("team_info").updateOne(
               { teamName: targetTeam.teamName },
               {
                 $set: { coordinates: array },
               }
             );
-            console.log(targetTeam)
+            //console.log(targetTeam)
             if (targetTeam.coordinates.length === 0) {
               let turn_info = await db.collection("turn_info").findOne({});
               let index = turn_info.rem_teams.indexOf(targetTeam.teamId);
@@ -519,7 +519,7 @@ app.post("/submit", async (req, res) => {
             return;
           }
           idx = targetTeam.trapCoordinates?.indexOf(selectedCoordinates[0]);
-          console.log(idx);
+          //console.log(idx);
           if (idx != -1 && idx !== undefined) {
             await db
               .collection("team_info")
@@ -571,7 +571,7 @@ app.post("/submit", async (req, res) => {
           idx = targetTeam.superTrapCoordinates?.indexOf(
             selectedCoordinates[0]
           );
-          console.log(idx);
+          //console.log(idx);
           if (idx != -1 && idx !== undefined) {
             if (team.coordinates.length === 1) {
               await db
@@ -642,8 +642,8 @@ app.post("/submit", async (req, res) => {
               res: team.color,
             });
           }
-          console.log("empty shot outside");
-          console.log(team.choicesLeft - 1);
+          //console.log("empty shot outside");
+          //console.log(team.choicesLeft - 1);
 
           if ((team.counter + 1) % 2 === 0) {
             let turn_info = await db.collection("turn_info").findOne({});
@@ -660,7 +660,7 @@ app.post("/submit", async (req, res) => {
           await db
             .collection("team_info")
             .updateOne({ teamName }, { $set: { counter: team.counter + 1 } });
-          console.log("after api call");
+          //console.log("after api call");
           await db.collection("team_info").updateOne(
             {
               teamName,
@@ -694,7 +694,7 @@ app.post("/submit", async (req, res) => {
           (selectedCoordinates[0] >= 815 && selectedCoordinates[0] <= 831) ||
           (selectedCoordinates[0] >= 867 && selectedCoordinates[0] <= 883)
         ) {
-          console.log("35");
+          //console.log("35");
           let idx;
           const targetTeam = await db
             .collection("team_info")
@@ -917,7 +917,7 @@ app.post("/submit", async (req, res) => {
           (selectedCoordinates[0] >= 1716 && selectedCoordinates[0] <= 1732) ||
           (selectedCoordinates[0] >= 1768 && selectedCoordinates[0] <= 1784)
         ) {
-          console.log("936");
+          //console.log("936");
           let idx;
           const targetTeam = await db
             .collection("team_info")
@@ -1141,7 +1141,7 @@ app.post("/submit", async (req, res) => {
           (selectedCoordinates[0] >= 1733 && selectedCoordinates[0] <= 1749) ||
           (selectedCoordinates[0] >= 1785 && selectedCoordinates[0] <= 1801)
         ) {
-          console.log("953");
+          //console.log("953");
           let idx;
           const targetTeam = await db
             .collection("team_info")
@@ -1364,7 +1364,7 @@ app.post("/submit", async (req, res) => {
           (selectedCoordinates[0] >= 1751 && selectedCoordinates[0] <= 1767) ||
           (selectedCoordinates[0] >= 1803 && selectedCoordinates[0] <= 1819)
         ) {
-          console.log("971");
+          //console.log("971");
           let idx;
           const targetTeam = await db
             .collection("team_info")
